@@ -1,6 +1,7 @@
 package testcases;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import utilities.driverSetup;
@@ -8,7 +9,7 @@ import utilities.driverSetup;
 public class TestCase1 extends driverSetup {
     HomePage homePage = new HomePage();
     @Test
-    public void testHomepage(){
+    public void testCase1(){
         homePage.loadAnWebPage(homePage.home_url);
         // verify homepage is visible
         WebElement logo = homePage.getElement(homePage.home_logo);
@@ -27,8 +28,21 @@ public class TestCase1 extends driverSetup {
         } else {
             System.out.println("Navigation failed. Current URL: " + actualUrl);
         }
-        homePage.writeElement(homePage.search_field, "Blue Top");
+        homePage.writeElement(homePage.search_field, "Tshirts");
         homePage.clickElement(homePage.search_btn);
+        Actions actions = new Actions(getDriver());
+        actions.scrollToElement(homePage.getElement(homePage.view_product)).build().perform();
+        WebElement visible_products = homePage.getElement(homePage.search_products);
+        // verify visible search product successfully
+        if (visible_products.isDisplayed()) {
+            System.out.println("search product is visible successfully.");
+        } else {
+            System.out.println("search product is not visible.");
+        }
+
+
+
+
 
 
 
