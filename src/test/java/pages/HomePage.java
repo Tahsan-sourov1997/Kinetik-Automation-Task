@@ -17,6 +17,7 @@ public class HomePage extends BasePage{
     public By add_card_btn = By.xpath("//button[normalize-space()='Add to cart']");
     public By view_card_btn = By.xpath("//u[normalize-space()='View Cart']");
     public By quantity_number = By.xpath("//button[normalize-space()='4']");
+    public By all_products = By.xpath("//div[@class='features_items']");
 
 
 

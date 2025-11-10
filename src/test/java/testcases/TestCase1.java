@@ -1,15 +1,19 @@
 package testcases;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import utilities.driverSetup;
 
+import java.util.List;
+
 public class TestCase1 extends driverSetup {
     HomePage homePage = new HomePage();
     @Test
-    public void testCase1(){
+    public void testCase1() throws InterruptedException {
         homePage.loadAnWebPage(homePage.home_url);
         // verify homepage is visible
         WebElement logo = homePage.getElement(homePage.home_logo);
@@ -39,11 +43,19 @@ public class TestCase1 extends driverSetup {
         } else {
             System.out.println("search product is not visible.");
         }
+//        Verify all the products related to search is visible
+        List<WebElement> searchedProducts = getDriver().findElements(By.xpath("//div[@class='productinfo text-center']"));
 
-
-
-
-
+        if (searchedProducts.size() > 0) {
+            System.out.println(searchedProducts.size() + " products are displayed in the search results.");
+            for (WebElement product : searchedProducts) {
+                Assert.assertTrue(product.isDisplayed(), "A product is not visible in the search results.");
+            }
+            System.out.println("All searched products are visible successfully.");
+        } else {
+            Assert.fail("No products found in search results!");
+        }
+        Thread.sleep(3000);
 
 
 

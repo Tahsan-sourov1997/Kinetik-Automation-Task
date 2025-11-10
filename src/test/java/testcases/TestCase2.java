@@ -10,7 +10,7 @@ import utilities.driverSetup;
 public class TestCase2 extends driverSetup {
     HomePage homePage = new HomePage();
     @Test
-    public void testCase2(){
+    public void testCase2() throws InterruptedException {
         homePage.loadAnWebPage(homePage.home_url);
         // verify homepage is visible
         WebElement logo = homePage.getElement(homePage.home_logo);
@@ -35,17 +35,15 @@ public class TestCase2 extends driverSetup {
         quantity_box.sendKeys("4");
 //        Click add card button
         homePage.clickElement(homePage.add_card_btn);
+//        view cart button
         homePage.clickElement(homePage.view_card_btn);
-        WebElement kk = homePage.getElement(homePage.quantity_number);
-        String nn = kk.getText();
-        String expected = "4";
-        Assert.assertEquals(expected, nn, "Product name mismatch in cart!");
-        System.out.println("Product '" + nn + "' is displayed in the cart.");
-
-
-
-
-
+        WebElement quantity = homePage.getElement(homePage.quantity_number);
+//        Verify product is displayed card button with exact number
+        String actual_quantity = quantity.getText();
+        String expected_quantity = "4";
+        Assert.assertEquals(expected_quantity, actual_quantity, "Product name mismatch in cart!");
+        System.out.println("Product '" + actual_quantity + "' is displayed in the cart.");
+        Thread.sleep(3000);
 
 
 
